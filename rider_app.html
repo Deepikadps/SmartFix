@@ -231,6 +231,7 @@ function signin() {
 }
 
 function signout() {
+  try { localStorage.removeItem('sfRider'); } catch(e){}
   me = null; D = {p:[],h:[],d:[],r:[]};
   g('APP').style.display = 'none';
   g('LOGIN').style.display = 'flex';
@@ -239,10 +240,28 @@ function signout() {
 }
 
 function launch() {
+  // Save session to localStorage so rider stays logged in
+  try { localStorage.setItem('sfRider', JSON.stringify(me)); } catch(e){}
   g('LOGIN').style.display = 'none';
   g('APP').style.display = 'block';
   sv('rname', 'Hi, ' + me.name);
   loadData();
+}
+
+// Check saved session on page load
+function checkSession() {
+  try {
+    var saved = localStorage.getItem('sfRider');
+    if (saved) {
+      me = JSON.parse(saved);
+      g('LOGIN').style.display = 'none';
+      g('APP').style.display = 'block';
+      sv('rname', 'Hi, ' + me.name);
+      loadData();
+      return true;
+    }
+  } catch(e){}
+  return false;
 }
 
 function loadData() {
@@ -253,8 +272,11 @@ function loadData() {
       headers:{'Content-Type':'application/json'}
     })
     .then(function(r){ return r.json(); })
-    .then(function(res){ if(res&&res.shipments) parseRaw(res.shipments); else demo(); })
-    .catch(demo);
+    .then(function(res){
+      if (res && res.shipments) parseRaw(res.shipments);
+      else demo();
+    })
+    .catch(function(){ demo(); });
     return;
   }
   demo();
@@ -512,6 +534,8 @@ function makePDF() {
   doc.save('SmartFix_'+new Date().toISOString().slice(0,10)+'.pdf');
   toast('✅ PDF saved!');
 }
+// Check for saved session on load
+checkSession();
 </script>
 </body>
 </html>
