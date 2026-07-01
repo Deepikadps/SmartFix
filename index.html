@@ -254,7 +254,7 @@ tr:hover td{background:#fafbfc}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 <script>
-var API = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+var API = 'https://script.google.com/macros/s/AKfycbxwP1--HEXWVpVXXni2wCTO0Tk9F0zWHWz0OLsWuzbDlcP2HnZtBoiZI1tLjb12A6UdPQ/exec';
 var allShipments = [], allRiders = [], sFilter = 'all', me = null;
 
 function g(id){ return document.getElementById(id); }
@@ -263,7 +263,8 @@ function toast(m){ var t=g('toast'); t.textContent=m; t.classList.add('on'); set
 
 // ── API CALL ──
 function api(action, data, cb) {
-  if (API === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') { cb && cb(null); return; }
+  if (API === 'https://script.google.com/macros/s/AKfycbxwP1--HEXWVpVXXni2wCTO0Tk9F0zWHWz0OLsWuzbDlcP2HnZtBoiZI1tLjb12A6UdPQ/exec')
+ { cb && cb(null); return; }
   fetch(API + '?action=' + action, {
     method:'POST',
     body: JSON.stringify(Object.assign({action:action}, data)),
@@ -281,7 +282,8 @@ function aLogin() {
   if (!id || !pin) { showErr('Enter ID and PIN'); return; }
 
   // Demo mode
-  if (API === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+  if (API === 'https://script.google.com/macros/s/AKfycbxwP1--HEXWVpVXXni2wCTO0Tk9F0zWHWz0OLsWuzbDlcP2HnZtBoiZI1tLjb12A6UdPQ/exec')
+ {
     if (id === 'admin' && pin === '1234') { me = {id:'admin',name:'Admin',role:'admin'}; startDash(); }
     else showErr('Demo: admin / 1234');
     return;
@@ -514,7 +516,8 @@ function saveRider() {
     closeOv('ov-rider');
     renderRiders(); renderAssign(); populateRiderDropdowns();
   });
-  if (API==='YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+  if (API==='https://script.google.com/macros/s/AKfycbxwP1--HEXWVpVXXni2wCTO0Tk9F0zWHWz0OLsWuzbDlcP2HnZtBoiZI1tLjb12A6UdPQ/exec')
+ {
     var id='R'+Date.now().toString().slice(-6);
     allRiders.push({id:id,name:name,phone:phone,role:'rider'});
     toast('✅ Rider added! ID: '+id+' (Demo)');
