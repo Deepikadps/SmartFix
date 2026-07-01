@@ -168,7 +168,7 @@ button{width:100%;padding:14px;background:#1a56db;color:#fff;border:none;border-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 <script>
-var API = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+var API = 'https://script.google.com/macros/s/AKfycbxwP1--HEXWVpVXXni2wCTO0Tk9F0zWHWz0OLsWuzbDlcP2HnZtBoiZI1tLjb12A6UdPQ/exec';
 
 var USERS = {
   'R001': {id:'R001', name:'Rider Ahmed', pin:'1111', role:'rider'},
@@ -212,7 +212,8 @@ function signin() {
   }
 
   // API check
-  if (API !== 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+  if (API !== 'https://script.google.com/macros/s/AKfycbxwP1--HEXWVpVXXni2wCTO0Tk9F0zWHWz0OLsWuzbDlcP2HnZtBoiZI1tLjb12A6UdPQ/exec') 
+{
     fetch(API + '?action=login', {
       method:'POST',
       body: JSON.stringify({action:'login', riderId:id, pin:pin}),
@@ -265,7 +266,8 @@ function checkSession() {
 }
 
 function loadData() {
-  if (API !== 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+  if (API !== 'https://script.google.com/macros/s/AKfycbxwP1--HEXWVpVXXni2wCTO0Tk9F0zWHWz0OLsWuzbDlcP2HnZtBoiZI1tLjb12A6UdPQ/exec')
+ {
     fetch(API + '?action=getShipments', {
       method:'POST',
       body: JSON.stringify({action:'getShipments', riderId:me.id}),
@@ -513,7 +515,7 @@ function doWA(p,con,name,area,payment,balance) {
 }
 
 function sync(x) {
-  if(API==='YOUR_GOOGLE_APPS_SCRIPT_URL_HERE')return;
+  if(API==='https://script.google.com/macros/s/AKfycbxwP1--HEXWVpVXXni2wCTO0Tk9F0zWHWz0OLsWuzbDlcP2HnZtBoiZI1tLjb12A6UdPQ/exec')return;
   fetch(API+'?action=updateStatus',{method:'POST',body:JSON.stringify({action:'updateStatus',conNo:x.con,status:x.status,returnReason:x.returnReason||'',holdReason:x.holdReason||''}),headers:{'Content-Type':'application/json'}}).catch(function(){});
 }
 
